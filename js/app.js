@@ -61,3 +61,42 @@ if (depositForm) {
     });
 
 }
+
+const sendMoneyForm = document.getElementById("sendMoneyForm");
+
+if (sendMoneyForm) {
+
+    sendMoneyForm.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const destinatario = document.getElementById("destinatario").value;
+        const monto = Number(document.getElementById("montoEnvio").value);
+
+        let saldoActual = Number(localStorage.getItem("saldo"));
+
+        if (monto <= 0) {
+
+            alert("Ingrese un monto válido");
+            return;
+
+        }
+
+        if (monto > saldoActual) {
+
+            alert("Saldo insuficiente");
+            return;
+
+        }
+
+        saldoActual -= monto;
+
+        localStorage.setItem("saldo", saldoActual);
+
+        alert("Transferencia enviada a " + destinatario);
+
+        window.location.href = "menu.html";
+
+    });
+
+}
